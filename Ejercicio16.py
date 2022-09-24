@@ -1,19 +1,21 @@
 number = input("Dime un numero: ")
-contador = 0
+valid = False
 
 if number.isnumeric():
     number = int(number)
     aux = number - 1
-    if number <=1:
+    if number <= 1:
         print("The number is not prime")
     else:
-        while aux >1:
+        while aux > 1: 
             if number%aux == 0:
-                contador += 1
+                valid = True
             aux -= 1
-        if contador == 0:
+        if valid == False:
             print("The number is prime")
         else:
             print("The number is not prime")
 else:
     print("Invalid Numbers")
+            
+
