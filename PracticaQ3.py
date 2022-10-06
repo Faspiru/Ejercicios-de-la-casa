@@ -15,3 +15,5 @@ if cont == 0:
 if cont2 == 0:
     print("El numero es ondulado")
 
+
+
