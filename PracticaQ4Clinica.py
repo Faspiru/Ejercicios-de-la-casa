@@ -1,3 +1,6 @@
+from re import L
+
+
 pathologies = {
     "Respiratory system": [
         {
@@ -49,7 +52,8 @@ pathologies = {
 
 inicio_programa = True
 
-pacientes = []
+cont_pacientes = 0
+pacientes = {}
 while inicio_programa == True:
     seleccion_inicial = input(" ********************* \n ***Menu De Clinica*** \n ********************* \n 1. Registrar Paciente \n 2. Ver Pacientes \n 3. Salir \n Que desea realizar? \n --> ")
     while not seleccion_inicial.isnumeric() or not int(seleccion_inicial) in range(1, 4):
@@ -57,6 +61,7 @@ while inicio_programa == True:
     seleccion_inicial = int(seleccion_inicial)
 
     if seleccion_inicial == 1:
+        cont_pacientes +=1
         patologia_individual = []
         patologia_categorias = {1: "Respiratory system", 2: "Nervous system", 3: "Endocrine system"}
         nombre_paciente = input("Porfavor, introduzca su nombre: ")
@@ -77,19 +82,19 @@ while inicio_programa == True:
             id_patologia = input("Ingreso Invalido. Cual es el id de la patologia que padece? \n --> ")
         id_patologia = int(id_patologia)
         for grupoPatologico, patologia in pathologies.items():
-            if grupoPatologico == patologia_categorias.get(patologia_grupo_paciente):
-                for list in patologia:
-                    if list.get("id") == id_patologia:
-                        patologia_individual.append(list)
+            for list in patologia:
+                if list.get("id") == id_patologia:
+                    patologia_individual.append(list)
+        
     
         paciente = {
         "nombre": nombre_paciente,
         "apellido": apellido_paciente,
         "cedula": cedula_paciente,
         "grupo de la patologia": patologia_categorias.get(patologia_grupo_paciente),
-        "id": list
+        "id": patologia_individual
     }
-        pacientes.append(paciente)
+        print(paciente)
         for key, value in paciente.items():
             if key != "id":
                 print(key, value)
@@ -97,23 +102,42 @@ while inicio_programa == True:
                 for diccionario in patologia_individual:
                     for keys, values in diccionario.items():
                         print(keys, values)
+        pacientes[cont_pacientes] = paciente
         
     
     elif seleccion_inicial == 2:
-        print(pacientes)
+        #print(pacientes)
         filtro_patologico = []
         filtro_patologia = input("Desea filtrar los pacientes por cual patologia? \n --> (id) ")
         while not filtro_patologia.isnumeric() or not int(filtro_patologia) in range(1, 9):
             filtro_patologia = input("Ingreso Invalido. Desea filtrar los pacientes por cual patologia? \n --> (id) ")
         filtro_patologia = int(filtro_patologia)
-        for dict in pacientes:
-            for key, value in dict.items():
-                if key == "id":
-                    for keyy, valuee in value.items():
-                        if value.get("id") == filtro_patologia:
-                            filtro_patologico.append(dict)
-                                
-        print(filtro_patologico)
+        for key, value in pacientes.items():
+            #print(f"{key} --> ")
+            for keyy, valuee in value.items():
+                if keyy == "id":
+                    for dict in valuee:
+                        for keyyy, valueee in dict.items():
+                            if dict.get("id") == filtro_patologia:
+                                filtro_patologico.append(value)
+                                break
+        
+        if filtro_patologico == []:
+            print("No hay pacientes registrados con esa patologia")
+        else:
+            for dictionary in filtro_patologico:
+                for keyss, valuess in dictionary.items():
+                    if keyss != "id":
+                        print(keyss, valuess)
+                    else:
+                        for di in valuess:
+                            for keysss, valuesss in di.items():
+                                print(keysss, valuesss)    
+        
+        
+        #print(filtro_patologico)
+        
+    
 
     elif seleccion_inicial == 3:
         inicio_programa = False
