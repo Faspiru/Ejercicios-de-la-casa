@@ -1,0 +1,17 @@
+lista = [1, 2, 3, 6]
+lista_nueva = [lista[0]]
+
+y = lista[0]
+z = lista[1]
+resultado = y+z
+lista_nueva.append(resultado)
+
+for i, x in enumerate(lista):
+    while len(lista_nueva) < len(lista):
+        y = resultado
+        z = lista[i+2]
+        resultado = y+z
+        lista_nueva.append(resultado)
+    
+
+print(lista_nueva)

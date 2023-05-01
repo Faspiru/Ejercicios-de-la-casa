@@ -1,4 +1,5 @@
-cedula = 30057185
-cedula = str(cedula)
-cedula_tres_digitos = cedula[-3:]
-print(cedula_tres_digitos)
+sexo = input("Ingrese su sexo, (M o F): ").upper()
+while not sexo.isalpha() or not sexo == "M" and not sexo == "F":
+    sexo = input("Ingreso Invalido. Ingrese su sexo: ").upper()
+
+print(sexo)
